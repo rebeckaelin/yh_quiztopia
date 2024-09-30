@@ -14,49 +14,49 @@ provider:
 
 functions:
   getQuizes:
-    handler: handler.hello
+    handler: services/api/getQuizes.handler
     events:
       - httpApi:
           path: /quiz
           method: get
 
   postQuiz:
-    handler: handler.hello
+    handler: services/api/postQuiz.handler
     events:
       - httpApi:
           path: /
           method: post
 
   postQuestion:
-    handler: handler.hello
+    handler: services/api/postQuestion.handler
     events:
       - httpApi:
           path: /quiz/question
           method: post
 
   getSpecificQuiz:
-    handler: handler.hello
+    handler: services/api/getSpecificQuiz.handler
     events:
       - httpApi:
           path: /quiz/{quizId}
           method: get
 
   deleteQuiz:
-    handler: handler.hello
+    handler: services/api/deleteQuiz.handler
     events:
       - httpApi:
           path: /quiz/{quizId}
           method: delete
 
   signup:
-    handler: handler.hello
+    handler: services/auth/signup.handler
     events:
       - httpApi:
           path: /auth/signup
           method: post
 
   login:
-    handler: handler.hello
+    handler: services/auth/login.handler
     events:
       - httpApi:
           path: /auth/login
@@ -80,10 +80,10 @@ resources:
             KeyType: RANGE  
         BillingMode: PAY_PER_REQUEST
 
-    accounts:
+    users:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: accounts
+        TableName: users
         AttributeDefinitions:
           - AttributeName: username
             AttributeType: S 

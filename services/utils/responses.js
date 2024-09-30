@@ -1,6 +1,6 @@
-const sendResponse = (message, data) => {
+const sendResponse = (statusCode, message, data) => {
     return {
-        statusCode: 200,
+        statusCode: statusCode,
         headers: {
             "Content-Type": "application/json"
         },
