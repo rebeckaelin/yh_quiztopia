@@ -2,7 +2,7 @@ const {db} = require("../data/db")
 
 const getUser = async (username) => {
     const {Item} = await db.get({
-        TableName: "accounts",
+        TableName: "users",
         Key: {
             username: username
         }

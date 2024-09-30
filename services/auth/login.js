@@ -9,7 +9,6 @@ exports.handler = async (event) => {
 
     try {
         const user = await getUser(username)
-        console.log("Fetched user:", user);
         
         const correctPassword = await comparePassword(password, user)
         
