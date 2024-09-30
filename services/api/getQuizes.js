@@ -2,10 +2,8 @@ const {db} = require("../data/db")
 const {sendResponse, sendError} = require("../utils/responses");
 
 exports.handler = async(event) => {
-
     try {
-
-        const result = db.get({
+        const result = await db.query({
             TableName: "quizes",
             KeyConditionExpression: "quizType = :type",
             ExpressionAttributeValues: {
@@ -13,7 +11,7 @@ exports.handler = async(event) => {
             } 
         })
 
-        return sendResponse(200, "Success", result)
+        return sendResponse(200, "Success", result.Items)
         
     } catch (error) {
         sendError(500, "Error fetching quizes")

@@ -43,7 +43,7 @@ const handler = middy().use(validateToken()).handler(async (event) => {
         return sendResponse(200, "New questions added successfully!", updatedQuestions)
     } catch (error) {
         console.error("Error adding questions:", error);
-        return sendError(500, "Internal server error");
+        return sendError(500, "Error posting new questions..");
     }
 
 })
