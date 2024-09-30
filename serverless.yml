@@ -24,7 +24,7 @@ functions:
     handler: services/api/postQuiz.handler
     events:
       - httpApi:
-          path: /
+          path: /quiz
           method: post
 
   postQuestion:
@@ -73,7 +73,9 @@ resources:
             AttributeType: S  
           - AttributeName: quizId
             AttributeType: S  
-          - AttributeName: quizName
+          - AttributeName: quizname
+            AttributeType: S
+          - AttributeName: userId
             AttributeType: S
         KeySchema:
           - AttributeName: quizType
@@ -81,10 +83,12 @@ resources:
           - AttributeName: quizId
             KeyType: RANGE
         GlobalSecondaryIndexes:
-          - IndexName: QuizNameIndex  
+          - IndexName: QuizNameUserIndex  
             KeySchema:
-              - AttributeName: quizName
+              - AttributeName: userId
                 KeyType: HASH  
+              - AttributeName: quizname
+                KeyType: RANGE  
             Projection:
               ProjectionType: ALL  
         BillingMode: PAY_PER_REQUEST

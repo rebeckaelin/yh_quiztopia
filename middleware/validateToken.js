@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const { sendError } = require("../utils/response")
+const { sendError } = require("../services/utils/responses")
 
 const validateToken = () => {
     return {
@@ -9,7 +9,7 @@ const validateToken = () => {
             if (!token) throw new Error("Token missing")
             
             const data = jwt.verify(token, process.env.SECRET)
-            console.log('data from validate token', data)
+            // console.log('data from validate token', data)
             request.event.userId = data.userId
             return request.response
             

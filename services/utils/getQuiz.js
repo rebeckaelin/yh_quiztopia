@@ -5,12 +5,8 @@ const getQuiz = async (quizname, userId) => {
     try {
         const result = await db.query({
             TableName: "quizes",
-            IndexName: "QuizNameIndex",
-            KeyConditionExpression: "quizName = :quizname",
-            ExpressionAttributeValues: {
-                ":quizname": quizname
-            },
-            FilterExpression: "userId = :userId",
+            IndexName: "QuizNameUserIndex",
+            KeyConditionExpression: "quizname = :quizname AND userId = :userId",
             ExpressionAttributeValues: {
                 ":quizname": quizname,
                 ":userId": userId
@@ -23,4 +19,4 @@ const getQuiz = async (quizname, userId) => {
 
 }
 
-exports.handler = {getQuiz}
+module.exports = {getQuiz}
