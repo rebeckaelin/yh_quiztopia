@@ -10,7 +10,7 @@ const validateToken = () => {
             
             const data = jwt.verify(token, process.env.SECRET)
             console.log('data from validate token', data)
-            request.event.userID = data.userId
+            request.event.userId = data.userId
             return request.response
             
         } catch (error) {
