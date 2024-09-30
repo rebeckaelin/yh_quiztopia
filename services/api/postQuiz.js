@@ -53,7 +53,7 @@ const handler = middy().use(validateToken()).handler(async (event) => {
         
     } catch (error) {
         console.error("error creating quiz:" , error)
-        return sendError(400, "Internal Server error")
+        return sendError(400, "Error creating quiz..")
     }
 
 })
