@@ -1,0 +1,94 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: jsd23
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: quiztopia
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+  role: arn:aws:iam::440744238402:role/firstRole
+  environment:
+    SECRET: hej
+
+functions:
+  getQuizes:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /quiz
+          method: get
+
+  postQuiz:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: post
+
+  postQuestion:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /quiz/question
+          method: post
+
+  getSpecificQuiz:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /quiz/{quizId}
+          method: get
+
+  deleteQuiz:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /quiz/{quizId}
+          method: delete
+
+  signup:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /auth/signup
+          method: post
+
+  login:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /auth/login
+          method: post
+
+resources:
+  Resources:
+    quizes:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quizes
+        AttributeDefinitions:
+          - AttributeName: quizType
+            AttributeType: S  
+          - AttributeName: quizId
+            AttributeType: S  
+        KeySchema:
+          - AttributeName: quizType
+            KeyType: HASH  
+          - AttributeName: quizId
+            KeyType: RANGE  
+        BillingMode: PAY_PER_REQUEST
+
+    accounts:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: accounts
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S 
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+
+        BillingMode: PAY_PER_REQUEST
