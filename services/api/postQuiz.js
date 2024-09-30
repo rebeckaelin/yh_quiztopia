@@ -3,7 +3,7 @@ const {v4: uuid} = require("uuid")
 const {sendResponse, sendError} = require("../utils/responses");
 const { validateToken } = require("../../middleware/validateToken");
 const middy = require("@middy/core");
-const { getQuiz } = require("../utils/getQuiz");
+const { getQuiz } = require("../utils/getQuizByUsernameAndUserId");
 
 const handler = middy().use(validateToken()).handler(async (event) => {
     const {quizType, quizname, questions} = JSON.parse(event.body)

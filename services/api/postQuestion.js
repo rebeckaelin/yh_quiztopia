@@ -2,7 +2,7 @@ const {db} = require("../data/db")
 const {sendResponse, sendError} = require("../utils/responses");
 const { validateToken } = require("../../middleware/validateToken");
 const middy = require("@middy/core");
-const { getQuiz } = require("../utils/getQuiz")
+const { getQuiz } = require("../utils/getQuizByUsernameAndUserId")
 
 const handler = middy().use(validateToken()).handler(async (event) => {
     const { quizname, newQuestions } = JSON.parse(event.body)
