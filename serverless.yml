@@ -62,6 +62,21 @@ functions:
           path: /auth/login
           method: post
 
+  registerHighscore:
+    handler: services/api/registerHighscore.handler
+    events:
+      - httpApi:
+          path: /quiz/register
+          method: post
+
+
+  getHighscore:
+    handler: services/api/getHighscore.handler
+    events:
+      - httpApi:
+          path: /quiz/highscore
+          method: get
+
 resources:
   Resources:
     quizes:
@@ -83,7 +98,7 @@ resources:
           - AttributeName: quizId
             KeyType: RANGE
         GlobalSecondaryIndexes:
-          - IndexName: QuizNameUserIndex  
+          - IndexName: QuizNameUserIndex
             KeySchema:
               - AttributeName: userId
                 KeyType: HASH  
@@ -103,5 +118,21 @@ resources:
         KeySchema:
           - AttributeName: username
             KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    leaderboard:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: leaderboard
+        AttributeDefinitions:
+          - AttributeName: quizId
+            AttributeType: S
+          - AttributeName: highscore
+            AttributeType: N
+        KeySchema:
+          - AttributeName: quizId
+            KeyType: HASH
+          - AttributeName: highscore
+            KeyType: RANGE
 
         BillingMode: PAY_PER_REQUEST
