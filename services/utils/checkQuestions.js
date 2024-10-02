@@ -14,7 +14,5 @@ const checkQuestionData = async (quizname, questions) => {
             throw new Error ("Each question must have a non-empty question, answer, and a valid location.")
         }
     }
-    return
-
 }
 module.exports = { checkQuestionData}
