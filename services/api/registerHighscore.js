@@ -26,7 +26,6 @@ const handler = middy().use(validateToken()).handler(async (event)=> {
             Key: {
                 quizId:quizId,
                 userId: loggedInUser
-            
             }
         })
 

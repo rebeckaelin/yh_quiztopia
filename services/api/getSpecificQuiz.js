@@ -1,4 +1,4 @@
-const { getQuizById } = require("../utils/getQuizWithId");
+const { getQuizById } = require("../utils/getQuizById");
 const {sendResponse, sendError} = require("../utils/responses");
 
 

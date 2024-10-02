@@ -1,4 +1,3 @@
-// const {sendError} = require("../utils/responses");
 const {db} = require("../data/db");
 
 
@@ -15,7 +14,6 @@ const getQuizById = async (quizType, quizId) => {
         console.error("Error fetching quiz by ID:", error);
         throw new Error ("Error fetching quiz..")
     }
-
 
 }
 module.exports = {getQuizById}
