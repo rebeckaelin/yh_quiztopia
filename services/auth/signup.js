@@ -8,14 +8,6 @@ const { checkUserData } = require("../utils/checkUserData");
 exports.handler = async (event) => {
   const { username, password } = JSON.parse(event.body);
 
-  // if (
-  //   !username ||
-  //   username.trim() === "" ||
-  //   !password ||
-  //   password.trim() === ""
-  // ) {
-  //   return sendError(400, "Username and password are required.");
-  // }
   try {
     await checkUserData(username, password);
   } catch (error) {
