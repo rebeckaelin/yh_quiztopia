@@ -41,7 +41,6 @@ const handler = middy()
       });
       return sendResponse(201, "Quiz created successfully", newQuiz);
     } catch (error) {
-      console.error("error creating quiz:", error);
       return sendError(400, "Error creating quiz..");
     }
   });

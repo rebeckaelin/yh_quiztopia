@@ -1,13 +1,13 @@
-const {db} = require("../data/db")
+const { db } = require("../data/db");
 
-const getUser = async (username) => {
-    const {Item} = await db.get({
-        TableName: "users",
-        Key: {
-            username: username
-        }
-    })
-    return Item
-}
+const getUserByUsername = async (username) => {
+  const { Item } = await db.get({
+    TableName: "users",
+    Key: {
+      username: username,
+    },
+  });
+  return Item;
+};
 
-module.exports = {getUser}
+module.exports = { getUserByUsername };

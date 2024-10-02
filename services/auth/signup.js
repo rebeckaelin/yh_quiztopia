@@ -2,7 +2,7 @@ const { db } = require("../data/db");
 const { v4: uuid } = require("uuid");
 const { sendResponse, sendError } = require("../utils/responses");
 const { hashPassword } = require("../utils/hashPassword");
-const { getUser } = require("../utils/getUserByUsername");
+const { getUserByUsername } = require("../utils/getUserByUsername");
 const { checkUserData } = require("../utils/checkUserData");
 
 exports.handler = async (event) => {
@@ -24,13 +24,13 @@ exports.handler = async (event) => {
   try {
     hashedPassword = await hashPassword(password);
   } catch (error) {
-    return sendError(500, "Error while hashing password");
+    return sendError(500, "Error while hashing password.");
   }
 
   try {
-    const userExists = await getUser(username);
+    const userExists = await getUserByUsername(username);
     if (userExists) {
-      return sendError(409, "Username already exists");
+      return sendError(409, "Username already exists.");
     }
 
     const newUser = {
@@ -38,11 +38,12 @@ exports.handler = async (event) => {
       username: username,
       password: hashedPassword,
     };
+
     await db.put({
       TableName: "users",
       Item: newUser,
     });
-    return sendResponse(201, "New user created", newUser);
+    return sendResponse(201, "New user created.", newUser);
   } catch (error) {
     return sendError(500, error.message);
   }
