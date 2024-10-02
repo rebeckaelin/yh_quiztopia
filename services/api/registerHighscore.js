@@ -2,6 +2,7 @@ const {db} = require("../data/db")
 const {sendResponse, sendError} = require("../utils/responses");
 const { validateToken } = require("../../middleware/validateToken");
 const middy = require("@middy/core");
+const { getQuizById } = require("../utils/getQuizWithId");
 
 const handler = middy().use(validateToken()).handler(async (event)=> {
     const {quizId, points} = JSON.parse(event.body)
@@ -16,10 +17,27 @@ const handler = middy().use(validateToken()).handler(async (event)=> {
     }
 
     try {
+        await getQuizById("quiz", quizId)
+
+        let previousHighscore = null
+
+        const currentScore = await db.get({
+            TableName: "leaderboard",
+            Key: {
+                quizId:quizId,
+                userId: loggedInUser
+            
+            }
+        })
+
+        if(currentScore.Item){
+            previousHighscore = currentScore.Item.highscore
+        }
 
         const newScore = {
             quizId: quizId,
             highscore: points,
+            previousHighscore: previousHighscore,
             userId: loggedInUser
         }
 

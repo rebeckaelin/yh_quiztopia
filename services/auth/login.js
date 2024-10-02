@@ -13,6 +13,7 @@ exports.handler = async (event) => {
 
     try {
         const user = await getUser(username)
+        
         if(!user) {
             return sendError(401, "Wrong username or password")
         }

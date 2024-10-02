@@ -1,4 +1,5 @@
-const {db} = require("../data/db")
+const {db} = require("../data/db");
+const { getQuizById } = require("../utils/getQuizWithId");
 const {sendResponse, sendError} = require("../utils/responses");
 
 
@@ -9,14 +10,7 @@ const handler = async (event) => {
         return sendError(400, "Quiz id is required in URL")
     }
 try {
-    const fetchedQuiz = await db.get({
-        TableName: "quizes",
-        Key: {quizType: "quiz", quizId: quizId}
-    })
-
-    if (!fetchedQuiz.Item) {
-        return sendError(404, "Quiz not found..")
-    }
+    await getQuizById("quiz", quizId)
 
     return sendResponse(200, "Success", fetchedQuiz.Item)
     

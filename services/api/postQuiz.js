@@ -6,15 +6,11 @@ const middy = require("@middy/core");
 const { getQuiz } = require("../utils/getQuizByUsernameAndUserId");
 
 const handler = middy().use(validateToken()).handler(async (event) => {
-    const {quizType, quizname, questions} = JSON.parse(event.body)
+    const {quizname, questions} = JSON.parse(event.body)
     const loggedInUser = event.userId
 
     if (!quizname || quizname.trim() === "") {
         return sendError(400, "Quizname is required.");
-    }
-
-    if (!quizType || quizType.trim() === "") {
-        return sendError(400, "Quiztype is required.");
     }
 
     if (!Array.isArray(questions) || questions.length === 0) {
@@ -37,7 +33,7 @@ const handler = middy().use(validateToken()).handler(async (event) => {
         }
         
         const newQuiz = {
-            quizType: quizType,
+            quizType: "quiz",
             quizId: uuid(),
             userId: loggedInUser,
             quizname: quizname,

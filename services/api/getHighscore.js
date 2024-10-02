@@ -12,10 +12,11 @@ exports.handler = async (event) => {
             ExpressionAttributeValues: {
                 ":quizId": quizId
             },
-            ScanIndexForward: false
         })
 
-        return sendResponse(200, "Success", result.Items)
+        const sortedPoints = result.Items.sort((a,b) => b.highscore - a.highscore)
+
+        return sendResponse(200, "Success", sortedPoints)
         
     } catch (error) {
         return sendError(500, "Error fetching leaderboard.")
