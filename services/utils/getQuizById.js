@@ -1,4 +1,6 @@
-const {sendError} = require("../utils/responses");
+// const {sendError} = require("../utils/responses");
+const {db} = require("../data/db");
+
 
 const getQuizById = async (quizType, quizId) => {
     try {
@@ -7,10 +9,11 @@ const getQuizById = async (quizType, quizId) => {
         Key: {quizType: quizType, quizId: quizId}
     })
 
-    return fetchedQuiz
+    return fetchedQuiz.Item || null
 
     } catch (error) {
-        return sendError(404, "Quiz not found..")
+        console.error("Error fetching quiz by ID:", error);
+        throw new Error ("Error fetching quiz..")
     }
 
 

@@ -1,4 +1,3 @@
-const {db} = require("../data/db");
 const { getQuizById } = require("../utils/getQuizWithId");
 const {sendResponse, sendError} = require("../utils/responses");
 
@@ -10,13 +9,16 @@ const handler = async (event) => {
         return sendError(400, "Quiz id is required in URL")
     }
 try {
-    await getQuizById("quiz", quizId)
+    const fetchedQuiz = await getQuizById("quiz", quizId)
+    if (!fetchedQuiz){
+        return sendError(404, "Quiz not found..")
+    }
 
-    return sendResponse(200, "Success", fetchedQuiz.Item)
+    return sendResponse(200, "Success", fetchedQuiz)
     
 } catch (error) {
     console.error("Error fetching quiz:", error);
-    return sendError(500, "Error fetching quiz.");
+    return sendError(500, "Error fetching quiz!");
 }
 
 }

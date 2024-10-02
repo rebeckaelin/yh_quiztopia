@@ -28,6 +28,17 @@ const handler = middy().use(validateToken()).handler(async (event) => {
             return sendError(404, "Quiz not found")
         }
 
+        const existingQuestions = existingQuiz.questions
+
+        for (const newQuestion of newQuestions) {
+            const duplicatedQuestion = existingQuestions.find(q => q.question.trim().toLowerCase()=== newQuestion.question.trim().toLowerCase())
+
+            if(duplicatedQuestion) {
+                return sendError(400, "The question already exists in your quiz.")
+            }
+        }
+
+
         const updatedQuestions = [...existingQuiz.questions, ...newQuestions]
 
         await db.update({
