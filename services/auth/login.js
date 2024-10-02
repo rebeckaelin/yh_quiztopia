@@ -1,7 +1,7 @@
 
 const {sendResponse, sendError} = require("../utils/responses");
 const { comparePassword } = require("../utils/comparePassword");
-const { getUser } = require("../utils/getUser");
+const { getUser } = require("../utils/getUserByUsername");
 const { generateToken } = require("../auth/generateToken");
 
 exports.handler = async (event) => {

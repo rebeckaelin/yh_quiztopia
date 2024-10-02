@@ -2,7 +2,7 @@ const {db} = require("../data/db")
 const {v4: uuid} = require("uuid")
 const {sendResponse, sendError} = require("../utils/responses");
 const { hashPassword } = require("../utils/hashPassword");
-const { getUser } = require("../utils/getUser");
+const { getUser } = require("../utils/getUserByUsername");
 
 
 exports.handler = async (event) => {

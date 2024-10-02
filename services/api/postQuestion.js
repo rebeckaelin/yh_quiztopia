@@ -4,6 +4,7 @@ const { validateToken } = require("../../middleware/validateToken");
 const middy = require("@middy/core");
 const { getQuiz } = require("../utils/getQuizByUsernameAndUserId");
 const { checkQuestionData } = require("../utils/checkQuestions");
+const { checkForDuplicateQuestion } = require("../utils/checkForDuplicateQuestion");
 
 const handler = middy().use(validateToken()).handler(async (event) => {
     const { quizname, newQuestions } = JSON.parse(event.body)
@@ -21,13 +22,12 @@ const handler = middy().use(validateToken()).handler(async (event) => {
         }
 
         const existingQuestions = existingQuiz.questions
-
-        for (const newQuestion of newQuestions) {
-            const duplicatedQuestion = existingQuestions.find(q => q.question.trim().toLowerCase()=== newQuestion.question.trim().toLowerCase())
-
-            if(duplicatedQuestion) {
-                return sendError(400, "The question already exists in your quiz.")
-            }
+        
+        try {
+            await checkForDuplicateQuestion(existingQuestions, newQuestions)
+            
+        } catch (error) {
+            return sendError(400, error.message)
         }
 
         const updatedQuestions = [...existingQuiz.questions, ...newQuestions]
