@@ -1,0 +1,17 @@
+{
+  "name": "quiztopia",
+  "version": "1.0.0",
+  "description": "a locationbased quiz",
+  "main": "handler.js",
+
+  "author": "Rebecka Larsson",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.658.1",
+    "@aws-sdk/lib-dynamodb": "^3.658.1",
+    "@middy/core": "v4.7",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^10.0.0"
+  }
+}
